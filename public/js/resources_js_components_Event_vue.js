@@ -23,7 +23,7 @@ __webpack_require__.r(__webpack_exports__);
     this.getEvent();
     this.startTimer();
   },
-  beforeDestroy: function beforeDestroy() {
+  beforeUnmount: function beforeUnmount() {
     this.stopTimer();
   },
   watch: {

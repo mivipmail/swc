@@ -20,10 +20,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var id = this.$route.params.id;
-    if (id) this.getUser(id);
+    this.init();
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.init();
+    }
   },
   methods: {
+    init: function init() {
+      var id = this.$route.params.id;
+      if (id) this.getUser(id);else this.user = null;
+    },
     getUser: function getUser(id) {
       var _this = this;
       this.error = null;

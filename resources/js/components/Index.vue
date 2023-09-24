@@ -1,9 +1,9 @@
 <template>
     <header v-if="token" class="navbar navbar-expand-lg bd-navbar sticky-top text-bg-primary">
         <nav class="container-xxl bd-gutter flex-wrap flex-lg-nowrap" aria-label="Main navigation">
-            <a class="navbar-brand me-2 ms-2 ms-xxl-0 text-white" href="/" aria-label="Bootstrap">
+            <router-link :to="{ name: 'user.index' }" class="navbar-brand me-2 ms-2 ms-xxl-0 text-white">
                 {{ $store.getters.me?.name }} {{ $store.getters.me?.surname }}
-            </a>
+            </router-link>
             <div class="" id="bdNavbar">
                 <div class="offcanvas-body p-0">
                     <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav ms-auto">
@@ -119,7 +119,7 @@
             this.startTimer()
         },
 
-        beforeDestroy () {
+        beforeUnmount() {
             this.stopTimer()
         },
 

@@ -47,12 +47,24 @@
         },
 
         mounted() {
-            let id = this.$route.params.id
-            if(id)
-                this.getUser(id)
+            this.init()
+        },
+
+        watch: {
+            $route(to, from) {
+                this.init()
+            }
         },
 
         methods: {
+            init() {
+                let id = this.$route.params.id
+                if(id)
+                    this.getUser(id)
+                else
+                    this.user = null
+            },
+
             getUser(id) {
                 this.error = null
                 axios.get(`/api/users/${id}`)
