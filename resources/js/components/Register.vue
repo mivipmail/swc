@@ -119,12 +119,9 @@
                                     localStorage.setItem('x_xsrf_token', res.config.headers["X-XSRF-TOKEN"])
                                     this.$router.push({name: 'user.index'})
                                 }
-                                else
-                                    this.error = 'Не удалось зарегистрироваться'
                             })
                             .catch(err => {
-                                this.error = 'Не удалось зарегистрироваться'
-                                console.log(err)
+                                this.error = err.response.data.message
                             })
                     })
             },

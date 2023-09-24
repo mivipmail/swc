@@ -16,16 +16,16 @@ class EventController extends Controller
     public function index()
     {
         try {
-            return [
+            return response()->json([
                 'result' => EventResource::collection(Event::all()),
                 'error' => null,
-            ];
+            ]);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 
@@ -34,23 +34,23 @@ class EventController extends Controller
         try {
             $event = Event::find($id);
             if(!$event)
-                return [
+                return response()->json([
                     'result' => null,
                     'error' => 'Не удалось найти событие с id ' . $id,
-                ];
+                ], 404);
 
             $event->memberUsers()->attach(auth()->user()->id);
             $event->refresh();
-            return [
+            return response()->json([
                 'result' => new EventResource($event),
                 'error' => null,
-            ];
+            ]);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 
@@ -59,23 +59,23 @@ class EventController extends Controller
         try {
             $event = Event::find($id);
             if(!$event)
-                return [
+                return response()->json([
                     'result' => null,
                     'error' => 'Не удалось найти событие с id ' . $id,
-                ];
+                ], 404);
 
             $event->memberUsers()->detach(auth()->user()->id);
             $event->refresh();
-            return [
+            return response()->json([
                 'result' => new EventResource($event),
                 'error' => null,
-            ];
+            ]);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 
@@ -90,16 +90,16 @@ class EventController extends Controller
                 'user_id' => $data['user_id'],
             ]);
 
-            return [
+            return response()->json([
                 'result' => new EventResource($event),
                 'error' => null,
-            ];
+            ]);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 
@@ -109,21 +109,21 @@ class EventController extends Controller
             $event = Event::find($id);
 
             if($event) 
-                return [
+                return response()->json([
                     'result' => new EventResource($event),
                     'error' => null,
-                ];
+                ]);
             else
-                return [
+                return response()->json([
                     'result' => null,
                     'error' => 'Не удалось найти событие с id ' . $id,
-                ];
+                ], 404);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 
@@ -137,23 +137,23 @@ class EventController extends Controller
         try {
             $event = Event::find($id);
             if(!$event)
-                return [
+                return response()->json([
                     'result' => null,
                     'error' => 'Не удалось найти событие с id ' . $id,
-                ];
+                ], 404);
 
             $event->delete();
             
-            return [
+            return response()->json([
                 'result' => 'Ok',
                 'error' => null,
-            ];
+            ]);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 }

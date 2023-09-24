@@ -22,7 +22,7 @@ const actions = {
                     commit('setMe', res.data.result)
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.response.data.error)
             })
     },
 }

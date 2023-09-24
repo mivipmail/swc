@@ -11,16 +11,16 @@ class UserController extends Controller
     public function me()
     {
         try {
-            return [
+            return response()->json([
                 'result' => new UserResource(auth()->user()),
                 'error' => null,
-            ];
+            ]);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 
@@ -30,21 +30,21 @@ class UserController extends Controller
             $user = User::find($id);
 
             if($user)
-                return [
+                return response()->json([
                     'result' => new UserResource($user),
                     'error' => null,
-                ];
+                ]);
             else
-                return [
+                return response()->json([
                     'result' => null,
                     'error' => 'Не удалось найти пользователя с id ' . $id,
-                ];
+                ], 404);
         }
         catch (\Exception $e) {
-            return [
+            return response()->json([
                 'result' => null,
                 'error' => $e->getMessage(),
-            ];
+            ], 403);
         }
     }
 

@@ -22543,6 +22543,8 @@ window.axios.interceptors.response.use({}, function (err) {
     _router__WEBPACK_IMPORTED_MODULE_1__["default"].push({
       name: 'user.login'
     });
+  } else {
+    return Promise.reject(err);
   }
 });
 
@@ -22709,7 +22711,7 @@ var actions = {
     axios.get("/api/events").then(function (res) {
       if (res) commit('setEvents', res.data.result);
     })["catch"](function (err) {
-      console.log(err);
+      console.log(err.response.data.error);
     });
   }
 };
@@ -22753,7 +22755,7 @@ var actions = {
     axios.get("/api/users/me").then(function (res) {
       if (res) commit('setMe', res.data.result);
     })["catch"](function (err) {
-      console.log(err);
+      console.log(err.response.data.error);
     });
   }
 };

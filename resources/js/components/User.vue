@@ -11,25 +11,25 @@
             </tr>
         </tbody>
     </table>
-    <table v-if="user || $store.getters.me" class="table">
+    <table v-if="$route.params.id ? user : $store.getters.me" class="table">
         <thead>
             <tr>
-                <th>{{ (user || $store.getters.me)?.name }} {{ (user || $store.getters.me)?.surname }}</th>
+                <th>{{ ($route.params.id ? user : $store.getters.me)?.name }} {{ (user || $store.getters.me)?.surname }}</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Логин</td>
-                <td>{{ (user || $store.getters.me)?.login }}</td>
+                <td>{{ ($route.params.id ? user : $store.getters.me)?.login }}</td>
             </tr>
             <tr>
                 <td>Дата рождения</td>
-                <td>{{ (user || $store.getters.me)?.birthday }}</td>
+                <td>{{ ($route.params.id ? user : $store.getters.me)?.birthday }}</td>
             </tr>
             <tr>
                 <td>Дата регистрации</td>
-                <td>{{ (user || $store.getters.me)?.created_at }}</td>
+                <td>{{ ($route.params.id ? user : $store.getters.me)?.created_at }}</td>
             </tr>
         </tbody>
     </table>
@@ -58,26 +58,21 @@
 
         methods: {
             init() {
+                this.user = null
                 let id = this.$route.params.id
                 if(id)
                     this.getUser(id)
-                else
-                    this.user = null
             },
 
             getUser(id) {
                 this.error = null
                 axios.get(`/api/users/${id}`)
                     .then(res => {
-                        if(res?.data.result)
-                            this.user = res?.data.result
-                        else {
-                            this.user = null
-                            this.error = res?.data.error
-                        }
+                        this.user = res?.data.result
                     })
                     .catch(err => {
-                        console.log(err.response)
+                        this.user = null
+                        this.error = err.response.data.error
                     })
             },
         },

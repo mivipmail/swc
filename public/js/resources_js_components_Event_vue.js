@@ -37,12 +37,10 @@ __webpack_require__.r(__webpack_exports__);
       this.error = null;
       var id = this.$route.params.id;
       if (id) axios.get("/api/events/".concat(id)).then(function (res) {
-        if (res !== null && res !== void 0 && res.data.result) _this.event = res === null || res === void 0 ? void 0 : res.data.result;else {
-          _this.event = null;
-          _this.error = res === null || res === void 0 ? void 0 : res.data.error;
-        }
+        _this.event = res === null || res === void 0 ? void 0 : res.data.result;
       })["catch"](function (err) {
-        console.log('err', err.response);
+        _this.event = null;
+        _this.error = err.response.data.error;
       });
     },
     followEvent: function followEvent() {
@@ -52,11 +50,9 @@ __webpack_require__.r(__webpack_exports__);
         if (res !== null && res !== void 0 && res.data.result) {
           _this2.event = res.data.result;
           _this2.$store.dispatch('getEvents');
-        } else {
-          console.log(res === null || res === void 0 ? void 0 : res.data.error);
         }
       })["catch"](function (err) {
-        console.log(err);
+        console.log(err.response.data.error);
       });
     },
     destroyEvent: function destroyEvent() {
@@ -66,7 +62,7 @@ __webpack_require__.r(__webpack_exports__);
           name: 'user.index'
         });
       })["catch"](function (err) {
-        console.log(err);
+        console.log(err.response.data.error);
       });
     },
     stopTimer: function stopTimer() {

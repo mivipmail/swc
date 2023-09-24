@@ -48,10 +48,9 @@ __webpack_require__.r(__webpack_exports__);
             _this.$router.push({
               name: 'user.index'
             });
-          } else _this.error = 'Не удалось зарегистрироваться';
+          }
         })["catch"](function (err) {
-          _this.error = 'Не удалось зарегистрироваться';
-          console.log(err);
+          _this.error = err.response.data.message;
         });
       });
     }

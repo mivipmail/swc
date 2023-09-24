@@ -101,15 +101,11 @@
                 if(id)
                     axios.get(`/api/events/${id}`)
                         .then(res => {
-                            if(res?.data.result)
-                                this.event = res?.data.result
-                            else {
-                                this.event = null
-                                this.error = res?.data.error
-                            }
+                            this.event = res?.data.result
                         })
                         .catch(err => {
-                            console.log('err', err.response)
+                            this.event = null
+                            this.error = err.response.data.error
                         })
             },
             
@@ -120,12 +116,9 @@
                             this.event = res.data.result
                             this.$store.dispatch('getEvents')
                         }
-                        else {
-                            console.log(res?.data.error)
-                        }
                     })
                     .catch(err => {
-                        console.log(err)
+                        console.log(err.response.data.error)
                     })
             },
 
@@ -135,7 +128,7 @@
                         this.$router.push({name: 'user.index'})
                     })
                     .catch(err => {
-                        console.log(err)
+                        console.log(err.response.data.error)
                     })
             },
 

@@ -73,7 +73,7 @@
                         this.$router.push({name: 'event.show', params: {id: res.data.result.id}})
                     })
                     .catch(err => {
-                        console.log(err)
+                        console.log(err.response.data.error)
                     })
             },
         },

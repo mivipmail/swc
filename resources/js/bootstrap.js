@@ -21,6 +21,9 @@ window.axios.interceptors.response.use({}, err => {
         
         router.push({name: 'user.login'});
     }
+    else {
+        return Promise.reject(err)
+    }
 })
 
 /**
