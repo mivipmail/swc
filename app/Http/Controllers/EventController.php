@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Http\Resources\EventResource;
+use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
 {
@@ -83,6 +84,16 @@ class EventController extends Controller
     {
         try {
             $data = $request->all();
+
+            $validator =Validator::make($data,  [
+                'title' => ['required', 'string', 'max:255'],
+                'content' => ['required', 'string'],
+            ]);
+            if($validator->fails())
+                return response()->json([
+                    'result' => null,
+                    'error' => $validator->errors()->first(),
+                ], 403);
 
             $event = Event::create([
                 'title' => $data['title'],

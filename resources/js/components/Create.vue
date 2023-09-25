@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="content" class="col-md-4 col-form-label text-md-end">Название</label>
+                            <label for="content" class="col-md-4 col-form-label text-md-end">Описание</label>
                             <div class="col-md-6">
                                 <textarea v-model="content" id="content" class="form-control" name="content"></textarea>
                             </div>

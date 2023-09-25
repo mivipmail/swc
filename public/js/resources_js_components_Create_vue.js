@@ -83,7 +83,7 @@ var _hoisted_7 = {
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "content",
   "class": "col-md-4 col-form-label text-md-end"
-}, "Название", -1 /* HOISTED */);
+}, "Описание", -1 /* HOISTED */);
 var _hoisted_9 = {
   "class": "col-md-6"
 };
