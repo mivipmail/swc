@@ -85,15 +85,19 @@ class EventController extends Controller
         try {
             $data = $request->all();
 
-            $validator =Validator::make($data,  [
+            $validator = Validator::make($data,  [
                 'title' => ['required', 'string', 'max:255'],
                 'content' => ['required', 'string'],
+            ], [
+                'required' => 'Все поля должны быть заполнены',
+                'string' => 'Поля должны иметь строковое значение',
+                'title.max' => 'Длина заголовка не должна превышать 255 символов',
             ]);
             if($validator->fails())
                 return response()->json([
                     'result' => null,
                     'error' => $validator->errors()->first(),
-                ], 403);
+                ], 422);
 
             $event = Event::create([
                 'title' => $data['title'],
