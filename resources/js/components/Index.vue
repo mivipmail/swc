@@ -36,7 +36,7 @@
                                     </strong>
 
                                     <ul v-if="$store.getters.events" class="list-unstyled fw-normal pb-2 small">
-                                        <li v-for="event in $store.getters.events">
+                                        <li v-for="event in $store.getters.events" :key="event.id">
                                             <router-link :to="{ name: 'event.show', params: { id: event.id } }"
                                                         class="bd-links-link d-inline-block rounded">
                                                 {{ event.title }}
